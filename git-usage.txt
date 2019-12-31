@@ -1,0 +1,105 @@
+echo 'Hello World' > hello.txt
+git add hello.txt
+git commit -m "Initial commit"
+tree .git/objects
+git cat-file -t 581caa
+git cat-file -p 581caa
+git log --oneline
+cat .git/HEAD
+
+#configure git editor (for vscode)
+git config --global core.editor "code --wait"
+
+git branch a_new_branch
+git status
+
+#list files
+git ls-files -s 
+
+#moving files in & out of the staging area 
+git add <file>
+git add -p
+git rm <file>
+git mv <file>
+
+working <> staging <> Repo
+
+#git stash -basic usage
+git stash
+git stash list
+git stash show stash@{0}
+git stash apply
+git stash apply stash@{0}
+
+git stash --include-untracked #keeping untracked files, very useful
+
+git stash --all
+
+git stash save "WIP: making progress on foo" # name stashes for easy reference, very useful
+
+git stash branch <optional stash name> # start a new branch from a stash
+git checkout <stash name> --<filename> # grab a single file from a stash
+git stash pop #remove the last stash and applying changes
+git stash drop # remove the last stash
+git stash drop stash@{n} remove the nth stash
+git stash clear # remove all stashes
+
+
+git tag -a v1.0 -m "Version 1.0 of my blog"
+git tag
+git show-ref --tag
+git tag --points-at <commit>
+git show v1.0
+
+#detached HEAD
+git branch <new-branch-name> <commit>
+
+#fast forward
+git checkout master
+git merge feature --no-ff
+
+#git rerere
+git config rerere.enabled true
+
+git reset --hard HEAD^
+git checkout -
+git checkout -f <new_branch> #force checkout
+
+git log --since  
+git log --name-status --follow --oneline <file>
+git log -grep <regexp>, e.g. git log --grep=mail --author=nina --since="2.weeks"
+git log --diff-filter=R --stat
+git log --diff-filter=M --oneline
+git log --author=Zhijie --since=2.weeks
+^ # the first parent commit
+^n # the nth parent commit
+~ # the first commit back, following 1st parent
+~n # number of commits back, following only 1st parent
+git show <commit>
+git show <commit> --stat
+git show <commit>:<file>
+
+git diff
+git diff --staged
+git diff A back
+git branch --merged master
+git branch --no-merged master
+
+git clean -dry-run
+git clean -d -dry-run
+git clean -d -f
+git reset --soft HEAD-
+git reset HEAD-
+git reset --mixed HEAD- #move HEAD, copy files to stage
+git reset --hard HEAD- #move HEAD, copy files to stage & working area
+git reset <commit> --<file> #reset the staging area
+git reset -ORIG-HEAD
+
+git branch my_branch_backup
+git reset my_branch_backup #do the above two before you reabse/fixup/squash/reorder
+
+git commit --amend
+git checkout -b <branch_name>
+git rebase master
+git log n -3 --oneline # last three commits
+git rebase -i HEAD~2 #interactive mode for rebasing previous two commits
